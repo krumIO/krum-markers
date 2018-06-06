@@ -3,6 +3,14 @@
   "description": "An indicator which would let user know about a bug/feature",
   "main": "krum-markers.html",
   "version": "0.0.1",
+    "authors": [
+    "krumIO"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/krumIO/krum-markers.git"
+  },
+  
   "dependencies": {
     "polymer": "Polymer/polymer#^1.9.2",
     "paper-icon-button": "PolymerElements/paper-icon-button#^2.0.0",
