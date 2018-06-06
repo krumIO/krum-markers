@@ -1,0 +1,143 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../paper-menu-button/paper-menu-button.html">
+
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../neon-animation/neon-animations.html">
+<link rel="import" href="../neon-animation/web-animations.html">
+
+<link rel="import" href="./krum-extension-custom-icon.html">
+
+<dom-module id="krum-feature-marker">
+
+	<template strip-whitespace>
+
+		<style include="iron-flex iron-flex-alignment">
+
+			:host {
+				display: block;
+				position: relative;
+				font-family: Roboto;
+				font-size: 14px;
+				--feature-marker-default-color: black;
+				--feature-marker-hover-color: red;
+			}
+
+			.feature-marker {
+				position: absolute;
+				z-index: 2;
+				color: var(--feature-marker-default-color);
+			}
+
+			.feature-marker-icon {
+				--iron-icon-fill-color: orange;
+			}
+
+			.feature-marker:hover {
+				color: var(--feature-marker-hover-color);
+			}
+
+			a {
+				color: var(--feature-marker-hover-color);
+				text-decoration: none;
+			}
+
+			.desc-container {
+				position: absolute;
+				border-radius: 4px;
+				margin-top: 4px;
+				padding: 6px;
+				background-color: #393939;
+				visibility: hidden;
+				color: rgba(255, 255, 255, 0.87);
+				box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+				min-width: 200px;
+			}
+			.desc-container[class*="show"] {
+				visibility: visible;
+			}
+
+			.content {
+				padding: 6px;
+			}
+
+			.link {
+				height: 32px;
+				@apply --layout-horizontal;
+				@apply --layout-center;
+				@apply --layout-center-justified;
+			}
+
+
+		</style>
+
+		<template is="dom-if" if="[[!hideMarkers]]" restamp="true">
+			<div class="feature-marker">
+					<iron-icon class="feature-marker-icon" hidden$="[[hideFeatureMarker]]" on-click="_toggleTooltip" icon="custom:feature"></iron-icon>
+				<div id="desc" on-click="_toggleTooltip"  class="layout vertical desc-container">
+					<span class="content"> [[description]] </span>
+					<template is="dom-if" if="[[url]]" restamp="true">
+						<a class="link" target="_blank" href="[[url]]">View issue</a>
+					</template>
+				</div>
+			</div>
+		</template>
+
+	</template>
+
+	<script>
+		/**
+		 * `krum-feature-marker`
+		 * An indicator which would let user know about a feature/feature
+		 *
+		 * @customElement
+		 * @polymer
+		 * @demo demo/index.html
+		 */
+
+		Polymer({
+			is: "krum-feature-marker",
+			properties: {
+				hideMarkers: {
+					type: Boolean,
+					value: true,
+				},
+
+				hideFeatureMarker: {
+					type: Boolean,
+					value: true,
+				},
+
+				url: {
+					type: String,
+				},
+
+
+			},
+
+			attached: function() {
+				window.addEventListener("krum-extension-remove-markers",  function ( e )  {
+					this.set("hideMarkers", true)
+				}.bind(this));
+
+				window.addEventListener("krum-extension-feature",  function ( e )  {
+					this.set("hideMarkers", false)
+					this.set("hideFeatureMarker", !e.detail)
+				}.bind(this));
+
+			},
+
+
+			_toggleTooltip: function() {
+				this.querySelector("#desc").classList.toggle("show")
+			},
+
+
+		})
+	</script>
+</dom-module>

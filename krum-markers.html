@@ -1,0 +1,53 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+
+<link rel="import" href="./krum-bug-marker.html">
+<link rel="import" href="./krum-feature-marker.html">
+<link rel="import" href="./krum-inprogress-marker.html">
+
+<dom-module id="krum-markers">
+
+	<template strip-whitespace>
+
+		<style include="iron-flex iron-flex-alignment">
+
+			div > * {
+				padding: 6px;
+				margin: 10px;
+			}
+
+		</style>
+
+		<div class="layout horizontal">
+			<krum-feature-marker></krum-feature-marker>
+			<krum-inprogress-marker></krum-inprogress-marker>
+			<krum-bug-marker></krum-bug-marker>
+		</div>
+
+	</template>
+
+	<script>
+		/**
+		 * `krum-markers`
+		 * An indicator which would let user know about a bug/feature
+		 *
+		 * @customElement
+		 * @polymer
+		 * @demo demo/index.html
+		 */
+
+		Polymer({
+			is: "krum-markers",
+			properties: {
+
+			},
+
+			attached: function() {
+			},
+
+
+
+		})
+	</script>
+</dom-module>
